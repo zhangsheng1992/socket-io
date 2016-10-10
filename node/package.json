@@ -1,0 +1,10 @@
+{
+  "name": "qrcodeserver",
+  "description": "connect the qrcode displayer and scanner",
+  "dependencies": {
+    "express": "^4.14.0",
+    "request": "^2.75.0",
+    "socket.io": "^1.4.8",
+    "winston": "^2.2.0"
+  }
+}

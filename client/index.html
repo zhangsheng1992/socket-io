@@ -1,0 +1,90 @@
+<!Doctype html>
+<html> 
+<head> 
+  <title>扫码登录demo</title>
+  <meta charset="utf-8"></meta>
+</head> 
+ 
+<body>
+    <div style='margin:100px auto;width:80%;text-align:center'>
+        <img src="" class="qrcode" style="display:none;margin:0 auto;"/><br />
+        <p></p><br />
+        <button class='button' onclick="getQrcode()" style='font-size:16px'>获取二维码登陆</button>
+    </div>
+<script type="text/javascript" src="js/socket.io.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    var timeLimit = 60;
+    var uuid;
+    /**
+     *  获取二维码 
+     */
+    function getQrcode(){
+        $.ajax({
+            type: 'POST',
+            url: '../php/index.php',
+            data: {},
+            dataType: 'json',
+            success: function(data){
+                if(data.code === 1){
+                    $('.qrcode').attr('src','../php/'+data.message);
+                    $('.qrcode').show();
+                    $('.button').attr('disabled',true);
+                    uuid = data.uuid;
+                    countDown();
+                    init(data.uuid);
+                    console.log('生成二维码成功,正在建立链接...');
+                }else{
+                    console.log(data.message);
+                }
+            }
+         });
+    }
+    
+    /**
+     *  刷新计时器 
+     */
+    function countDown(){
+        var id = setInterval(function (){
+            var str = '二维码有效期剩余:'+timeLimit+'秒';
+            $('.button').html(str);
+            if(timeLimit >0){
+                timeLimit--;
+            }else{
+                timeLimit = 60;
+                clearInterval(id);
+                $('.button').html('获取二维码登陆');
+                $('.button').attr('disabled',false);
+            }
+        },1000);
+    }
+    
+    /*
+     *  初始化链接
+     */
+    function init(uuid) {
+        var socket = io.connect('http://127.0.0.1:8888');
+
+        //向服务器发送uuid绑定socket.id  
+        socket.emit('/register',{uuid:uuid}); 
+        console.log("链接成功");
+
+
+        //手机端扫码成功
+        socket.on('/appconnect',function(data){  
+            console.log(data);  
+            //后续操作   页面显示扫码成功啦等等
+        });
+
+
+        //手机端确认登陆
+        socket.on('/appconfirm',function(data){  
+            //实际上就是要手机的token 扫码登陆实际上就是把手机的token传递到web端上
+            console.log(data);  
+            //后续操作  比如跳转页面
+        });
+    } 
+
+</script> 
+</body>  
+</html>
