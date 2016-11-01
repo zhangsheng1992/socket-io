@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket) {
     }); 
 
     //客户端断开链接  
-    socket.on('/disconnect', function () {  
+    socket.on('disconnect', function () {  
         if (UUID != null) {  
             logger.info('客户端断开链接,从连接池中删除', "uuid 为"+UUID+",socket.id为"+socket.id);  
             delete UUIDMap[UUID];  
