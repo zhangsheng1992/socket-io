@@ -1,0 +1,12 @@
+{
+  "name": "qrcodeserver",
+  "description": "connect the qrcode displayer and scanner",
+  "dependencies": {
+    "crypto": "0.0.3",
+    "express": "^4.14.0",
+    "mysql": "^2.12.0",
+    "request": "^2.75.0",
+    "socket.io": "^1.4.8",
+    "winston": "^2.2.0"
+  }
+}

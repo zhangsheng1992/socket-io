@@ -1,19 +1,41 @@
-
-#File List
-
-Client (client)
-* js              javascript file 
-* index.html      web client
-
-
-Server (php)
-* qrcode          php lib
-* temp            iamge file dir
-* index.php       service script
+##  11-25日更新
+* 1.增加了ios的扫码及请求示例代码
+* 2.修改了node server端返回数据的问题  swift部分三方解析包 不支持 text/html类型的返回结果
+* 3.v2.0版本遗留的部分bug修复   之前由于异步写入数据库 可能出现二维码出现而数据并未写入的情况 造成扫码失败
+    目前修改了部分代码  当数据库写入成功后再出现二维码 可解决这个问题
+* 4.新增了run-demo  里面保存安顺序运行结果截图  方便理解
 
 
-Server (node)
-* service         socket service script
+
+##V2.0 
+* 1.更新了node服务端  改为mysql数据库来存储连接信息   
+* 2.模拟了token加密
+* 3.增加了异常处理
+* 4.增加了相应位置的输出 方便调试
 
 
-The code is just a demo, if you want to run, please PHP and client files deployed in one place, or to modify the SRC property
+##V1.0
+* 1.区分目录及列表
+
+#文件列表及作用如下
+
+客户端(client)
+* js              静态文件路径
+* index.html      web client端
+
+
+服务端(php)
+* qrcode          php生成二维码库
+* temp            生成的二维码临时路径
+* index.php       生成二维码脚本
+
+
+服务端(node)
+* service         node的socket service 用来实现场链接
+
+
+##特别注意
+demo只是核心部分的示例代码   你可能需要稍微修改并加入到你的项目中才能运行
+demo只是核心部分的示例代码   你可能需要稍微修改并加入到你的项目中才能运行
+demo只是核心部分的示例代码   你可能需要稍微修改并加入到你的项目中才能运行
+重要的事情说三遍!!!!
